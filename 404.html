@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Callback · Leo Varela</title>
+  <title>404 · Off Map</title>
   <link rel="icon" href="/assets/alien.ico" type="image/x-icon">
   <style>
     :root {
@@ -13,12 +13,9 @@
       --muted: #a3aed1;
       --blue: #7ca8ff;
       --violet: #a16bff;
-      --green: #8fffd0;
-      --red: #ff9faa;
-      --amber: #ffd88c;
       --line: rgba(255,255,255,0.12);
       --line-strong: rgba(124,168,255,0.24);
-      --panel: rgba(9, 10, 22, 0.68);
+      --panel: rgba(9, 10, 22, 0.62);
       --panel-2: rgba(255,255,255,0.03);
     }
 
@@ -33,39 +30,33 @@
         radial-gradient(circle at 80% 20%, rgba(161,107,255,0.22), transparent 20%),
         radial-gradient(circle at 20% 80%, rgba(124,168,255,0.18), transparent 22%),
         linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+      display: grid;
+      place-items: center;
       padding: 20px;
       overflow-x: hidden;
     }
 
     .orb {
       position: fixed;
-      inset: auto auto 10% 8%;
-      width: min(42vw, 420px);
-      height: min(42vw, 420px);
+      width: min(70vw, 520px);
+      height: min(70vw, 520px);
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(124,168,255,0.18) 0%, rgba(124,168,255,0.02) 45%, transparent 68%);
-      filter: blur(18px);
+      background: radial-gradient(circle, rgba(124,168,255,0.20) 0%, rgba(124,168,255,0.02) 45%, transparent 65%);
+      filter: blur(16px);
       pointer-events: none;
     }
 
-    .shell {
+    .card {
       position: relative;
       z-index: 1;
-      max-width: 1120px;
-      margin: 0 auto;
-    }
-
-    .panel,
-    .footer {
+      width: min(920px, 100%);
+      text-align: center;
+      padding: 26px 20px 24px;
+      border-radius: 28px;
       border: 1px solid var(--line);
       background: var(--panel);
       backdrop-filter: blur(14px);
       box-shadow: 0 30px 80px rgba(0,0,0,.35);
-      border-radius: 28px;
-    }
-
-    .panel {
-      padding: 28px 20px 24px;
     }
 
     .topbar {
@@ -73,7 +64,7 @@
       justify-content: space-between;
       align-items: center;
       gap: 12px;
-      margin-bottom: 28px;
+      margin-bottom: 26px;
       text-align: left;
     }
 
@@ -93,7 +84,7 @@
     }
 
     .menu a,
-    .action-link {
+    .links a {
       text-decoration: none;
       color: var(--text);
       border: 1px solid var(--line);
@@ -104,9 +95,9 @@
     }
 
     .menu a:hover,
+    .links a:hover,
     .menu a:focus-visible,
-    .action-link:hover,
-    .action-link:focus-visible {
+    .links a:focus-visible {
       transform: translateY(-1px);
       border-color: var(--line-strong);
       background: rgba(255,255,255,0.06);
@@ -114,100 +105,39 @@
     }
 
     .menu a.primary,
-    .action-link.primary {
+    .links a.primary {
       border: none;
       background: linear-gradient(90deg, var(--blue), var(--violet));
       color: #07111f;
       font-weight: 700;
     }
 
-    .hero {
-      display: grid;
-      gap: 24px;
-      align-items: start;
-    }
-
-    .hero h1 {
-      margin: 0 0 14px;
-      font-size: clamp(2.5rem, 9vw, 4.6rem);
-      line-height: .94;
-      letter-spacing: -.05em;
-    }
-
-    .hero p {
+    h1 {
       margin: 0 0 12px;
-      max-width: 640px;
+      font-size: clamp(3.2rem, 13vw, 7rem);
+      letter-spacing: -.06em;
+      line-height: .92;
+    }
+
+    p {
+      margin: 0 auto 12px;
+      max-width: 620px;
       color: var(--muted);
       font-size: 1rem;
     }
 
-    .status-message {
-      display: none;
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      padding: 20px 18px;
-      background: var(--panel-2);
-      margin-top: 20px;
+    .links {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
     }
 
-    .status-message h3 {
-      margin: 0;
-      font-size: 1.2rem;
-      line-height: 1.5;
-    }
-
-    .status-message.processing { border-color: rgba(255,216,140,0.28); }
-    .status-message.processing h3 { color: var(--amber); }
-    .status-message.success { border-color: rgba(143,255,208,0.24); }
-    .status-message.success h3 { color: var(--green); }
-    .status-message.failure { border-color: rgba(255,159,170,0.24); }
-    .status-message.failure h3 { color: var(--red); }
-
-    .sections {
-      display: grid;
-      gap: 18px;
-      margin-top: 26px;
-    }
-
-    .card {
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 22px;
-      padding: 22px 18px;
-      background: var(--panel-2);
-    }
-
-    .card h2 {
-      margin: 0 0 14px;
-      font-size: 1.15rem;
-      color: var(--text);
-    }
-
-    .card p {
-      margin: 0 0 14px;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    .json-container {
-      background: rgba(4, 8, 20, 0.92);
-      color: #d3def7;
-      padding: 18px;
-      border-radius: 18px;
-      overflow-x: auto;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      line-height: 1.5;
-      border: 1px solid rgba(255,255,255,0.07);
-    }
-
-    .json-key { color: #8de7ff; }
-    .json-string { color: #b8a3ff; }
-    .json-number { color: #ffd88c; }
-    .json-boolean { color: #8fffd0; }
-    .json-null { color: #ff9faa; }
-
-    .game-card h2 {
-      margin: 0 0 12px;
-      font-size: 1.25rem;
+    .game-section {
+      margin-top: 30px;
+      padding-top: 24px;
+      border-top: 1px solid var(--line);
     }
 
     .game-header {
@@ -218,6 +148,14 @@
       flex-wrap: wrap;
       margin-bottom: 14px;
       text-align: left;
+    }
+
+    .game-title {
+      font-size: 1rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--blue);
+      margin: 0;
     }
 
     .score {
@@ -362,8 +300,9 @@
     }
 
     .footer {
-      margin-top: 22px;
-      padding: 18px 20px;
+      margin-top: 28px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255,255,255,0.08);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -371,6 +310,11 @@
       flex-wrap: wrap;
       color: var(--muted);
       font-size: .92rem;
+      text-align: left;
+    }
+
+    .footer-note {
+      max-width: 520px;
     }
 
     .footer-links {
@@ -392,37 +336,30 @@
       outline: none;
     }
 
-    @media (max-width: 799px) {
+    @media (max-width: 759px) {
       .topbar {
         flex-direction: column;
         align-items: center;
         text-align: center;
       }
+
       .menu {
         width: 100%;
       }
+
       .menu a {
         flex: 1 1 auto;
         min-width: 120px;
       }
+
       .footer {
-        justify-content: center;
         text-align: center;
+        justify-content: center;
       }
     }
 
-    @media (min-width: 800px) {
-      .panel,
-      .footer {
-        padding-left: 34px;
-        padding-right: 34px;
-      }
-      .hero {
-        grid-template-columns: 1fr;
-      }
-      .sections {
-        grid-template-columns: 1fr;
-      }
+    @media (min-width: 760px) {
+      .card { padding: 32px 38px 30px; }
       .game-layout {
         grid-template-columns: minmax(0, 360px) auto;
         justify-content: center;
@@ -435,148 +372,66 @@
 </head>
 <body>
   <div class="orb"></div>
-  <div class="shell">
-    <section class="panel">
-      <div class="topbar">
-        <div class="eyebrow">Callback · Signal return</div>
-        <nav class="menu" aria-label="Site navigation">
-          <a href="/">Home</a>
-          <a href="/about">About</a>
-                  </nav>
+  <section class="card">
+    <div class="topbar">
+      <div class="eyebrow">404 · Lost in space</div>
+      <nav class="menu" aria-label="Site navigation preview">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+      </nav>
+    </div>
+
+    <h1>404</h1>
+    <p>This page slipped outside the known coordinates.</p>
+    <p>You have reached a quiet edge of the map. The signal is still elegant, the route just is not here.</p>
+
+    <div class="links">
+      <a class="primary" href="/">Return to base</a>
+    </div>
+
+    <div class="game-section">
+      <div class="game-header">
+        <h2 class="game-title">Wormhole Snake</h2>
+        <div class="score">Score: <span id="score">0</span></div>
+        <div class="score">Best score: <span id="best-score">0</span></div>
       </div>
-
-      <div class="hero">
-        <div>
-          <h1>Callback received</h1>
-          <p>This endpoint is where payment state comes back into view. If a transfer is still in orbit, you will see it here first.</p>
-          <p>Useful for checking status, verifying query parameters, and confirming what the bank returned during the flow.</p>
-
-          <div class="status-message processing">
-            <h3>Your payment is being processed by the bank. Please wait for the final signal.</h3>
+      <div class="game-layout">
+        <canvas id="snake" width="360" height="360" aria-label="Snake game"></canvas>
+        <div class="side-panel">
+          <div class="controls" aria-label="Touch controls for snake game">
+            <button class="up" data-dir="up" aria-label="Move up">↑</button>
+            <button class="left" data-dir="left" aria-label="Move left">←</button>
+            <button class="down" data-dir="down" aria-label="Move down">↓</button>
+            <button class="right" data-dir="right" aria-label="Move right">→</button>
           </div>
 
-          <div class="status-message success">
-            <h3>Payment successful. The transfer landed cleanly.</h3>
-          </div>
-
-          <div class="status-message failure">
-            <h3>Payment failed. The transfer did not complete.</h3>
+          <div class="leaderboard">
+            <h3>Top scorers</h3>
+            <ol id="leaderboard-list"></ol>
+            <form id="leaderboard-form" class="leaderboard-form" style="display:none;">
+              <label for="player-name">You made the leaderboard</label>
+              <div class="leaderboard-row">
+                <input id="player-name" name="player-name" type="text" maxlength="24" placeholder="Your name" required>
+                <button type="submit">Save</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
-
-      <div class="sections">
-        <section class="card">
-          <h2>Parameters</h2>
-          <div id="parameters" class="json-container">No parameters found</div>
-        </section>
-
-        <section class="card game-card">
-          <h2>Bored at work? Play Wormhole Snake</h2>
-          <p>Use the keyboard on desktop or the touch controls on mobile. If your run lands in the top 5, you can sign the leaderboard.</p>
-
-          <div class="game-header">
-            <div class="score">Score: <span id="score">0</span></div>
-            <div class="score">Best score: <span id="best-score">0</span></div>
-          </div>
-
-          <div class="game-layout">
-            <canvas id="snake" width="360" height="360" aria-label="Snake game"></canvas>
-            <div class="side-panel">
-              <div class="controls" aria-label="Touch controls for snake game">
-                <button class="up" data-dir="up" aria-label="Move up">↑</button>
-                <button class="left" data-dir="left" aria-label="Move left">←</button>
-                <button class="down" data-dir="down" aria-label="Move down">↓</button>
-                <button class="right" data-dir="right" aria-label="Move right">→</button>
-              </div>
-
-              <div class="leaderboard">
-                <h3>Top scorers</h3>
-                <ol id="leaderboard-list"></ol>
-                <form id="leaderboard-form" class="leaderboard-form" style="display:none;">
-                  <label for="player-name">You made the leaderboard</label>
-                  <div class="leaderboard-row">
-                    <input id="player-name" name="player-name" type="text" maxlength="24" placeholder="Your name" required>
-                    <button type="submit">Save</button>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-
-          <p class="hint">Desktop: arrow keys or WASD. Mobile: use the touch controls. If you lose the signal, tap a direction or press a key to restart.</p>
-        </section>
-      </div>
-    </section>
+      <p class="hint">Desktop: arrow keys or WASD. Mobile: use the touch controls. If you lose the signal, tap a direction or press a key to restart.</p>
+    </div>
 
     <footer class="footer">
-      <div>Tracing payment signals across the edge of the system.</div>
+      <div class="footer-note">Exploring the edges of space, signal, and strange ideas.</div>
       <div class="footer-links">
         <a href="/">Home</a>
         <a href="/about">About</a>
+        <a href="mailto:info@leo-varela.com">Contact</a>
       </div>
     </footer>
-  </div>
+  </section>
 
   <script>
-    function syntaxHighlight(json) {
-      if (typeof json !== 'string') {
-        json = JSON.stringify(json, undefined, 2);
-      }
-      json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-      return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
-        let cls = 'json-number';
-        if (/^"/.test(match)) {
-          if (/:$/.test(match)) {
-            cls = 'json-key';
-          } else {
-            cls = 'json-string';
-          }
-        } else if (/true|false/.test(match)) {
-          cls = 'json-boolean';
-        } else if (/null/.test(match)) {
-          cls = 'json-null';
-        }
-        return '<span class="' + cls + '">' + match + '</span>';
-      });
-    }
-
-    function displayQueryParams() {
-      const params = new URLSearchParams(window.location.search);
-      const paramDiv = document.getElementById('parameters');
-
-      if (params.toString() === '') {
-        paramDiv.innerHTML = 'No query parameters found in the URL.';
-      } else {
-        const paramsObject = {};
-        params.forEach((value, key) => {
-          try {
-            paramsObject[key] = JSON.parse(value);
-          } catch (e) {
-            paramsObject[key] = value;
-          }
-        });
-        paramDiv.innerHTML = `<pre>${syntaxHighlight(paramsObject)}</pre>`;
-      }
-
-      const transferStatus = params.get('transfer-status');
-      const processingMessage = document.querySelector('.status-message.processing');
-      const successMessage = document.querySelector('.status-message.success');
-      const failureMessage = document.querySelector('.status-message.failure');
-
-      processingMessage.style.display = 'none';
-      successMessage.style.display = 'none';
-      failureMessage.style.display = 'none';
-
-      if (transferStatus === 'PROCESSING') {
-        processingMessage.style.display = 'block';
-      } else if (transferStatus === 'SUCCESS') {
-        successMessage.style.display = 'block';
-      } else if (['FAILURE_DECLINED', 'FAILURE_CANCELED', 'FAILURE_GENERIC'].includes(transferStatus)) {
-        failureMessage.style.display = 'block';
-      }
-    }
-
     const canvas = document.getElementById('snake');
     const ctx = canvas.getContext('2d');
     const scoreEl = document.getElementById('score');
@@ -800,10 +655,15 @@
       }
     }
 
-    function endGame() {
+    async function endGame() {
       gameOver = true;
       draw();
-      if (qualifiesForLeaderboard(score)) {
+      const localEntries = loadLocalLeaderboard();
+      if (qualifiesForEntries(localEntries, score)) {
+        showLeaderboardForm(score);
+        return;
+      }
+      if (await qualifiesForLeaderboard(score)) {
         showLeaderboardForm(score);
       } else {
         hideLeaderboardForm();
@@ -840,15 +700,12 @@
       draw();
     }
 
-    leaderboardForm.addEventListener('submit', (event) => {
+    leaderboardForm.addEventListener('submit', async (event) => {
       event.preventDefault();
       if (pendingLeaderboardScore === null) return;
       const name = playerNameInput.value.trim() || 'Anonymous';
-      const entries = loadLeaderboard();
-      entries.push({ name, score: pendingLeaderboardScore });
-      entries.sort((a, b) => b.score - a.score);
-      saveLeaderboard(entries);
-      renderLeaderboard();
+      const scores = await submitSharedScore(name, pendingLeaderboardScore);
+      renderLeaderboard(scores);
       hideLeaderboardForm();
     });
 
@@ -872,7 +729,6 @@
     });
 
     window.onload = async function () {
-      displayQueryParams();
       await refreshLeaderboard();
       resetGame();
       setInterval(tick, 96);
